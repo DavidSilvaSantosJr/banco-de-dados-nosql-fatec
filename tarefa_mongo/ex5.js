@@ -18,10 +18,16 @@ db.servicos.aggregate(
                 localField:"id_animal", //O campo na coleção local que será usado como referência para a junção.
                 foreignField: "_id", //campo na coleção externa que será usado para a junção (deve ser compatível com o localField)
                 as: "animal_infos"
-
-
             }
-        } 
+        },
+        {
+            $lookup:{
+                from:"clientes",
+                localField:"id_animal",
+                foreignField:"animais",
+                as: "cliente_infos"
+            }
+        }
         // trazer dados do cliente que recebeu o serviço buscado acima
         //nome do cliente e do animal, tipo do animal, id do cliente e do animal, forma de pagamento e status
     ]
